@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Container, ContainerImg, ContainerText } from './styles';
 
 interface ICountries {
@@ -15,10 +16,9 @@ export function CardCountry({name , region ,population,capital,flag}:ICountries)
     <Container>
       <ContainerImg>
         <img src={flag} alt={flag} />
-
       </ContainerImg>
       <ContainerText>
-        <h2>{name}</h2>
+        <Link to={`/country/${capital}`}>{name}</Link>
         <h3>Population: <span> {population} </span> </h3>
         <h3>Region: <span> {region} </span> </h3>
         <h3>Capital: <span>{capital}</span>  </h3>
