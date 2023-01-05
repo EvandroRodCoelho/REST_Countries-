@@ -5,5 +5,6 @@ export const light: DefaultTheme = {
   primary:'#858585',
   background: '#fafafa',
   text: '#111517',
-  secondary:'hsl(0, 0%, 52%)'
+  secondary: 'hsl(0, 0%, 52%)',
+  white:'#ffff',
 };
