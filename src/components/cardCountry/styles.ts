@@ -7,6 +7,7 @@ export const Container = styled.div`
   border-radius: 10px;
   background-color: ${props => props.theme.name == 'dark' ?props.theme.primary : props.theme.white};
   box-shadow: 0px 4px 36px -14px ${props => props.theme.secondary};
+  text-decoration: none;
 `;
 export const ContainerImg = styled.div`
   display: flex;
@@ -26,9 +27,11 @@ export const ContainerText = styled.div`
 
     flex:1;
     padding: 18px;
-    h2{
+    a{
         font-size: ${Font.size.mdl};
         font-weight: ${Font.weight.ExtraBold};
+        text-decoration: none;
+        color:${props => props.theme.text} ;
       }
     h3{
       font-size:${Font.size.md};
