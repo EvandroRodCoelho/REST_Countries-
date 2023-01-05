@@ -7,37 +7,66 @@ import { ICountries } from '../../types/apiType';
 import { CardCountry } from '../../components/cardCountry';
 
 
+
+
 export function Home() {
   const [countries, setCountries] = useState<ICountries[]>([]);
   const [firstFetch, setFirstFetch] = useState<ICountries[]>([]);
-
+  const [valueInput, setValueInput] = useState('');
+  const [valueSelect, setValueSelect] = useState<string>();
+  const value = valueSelect;
   async function Get() {
     const res = await axios.get('https://restcountries.com/v3.1/all');
     setCountries(res.data);
     setFirstFetch(res.data);
+    console.log(firstFetch);
   }
   useEffect(() => {
     Get();
   }, []);
+  useEffect(() => {
+    selectCountries();
+  },[valueSelect]);
+  function filterWithName(countries:ICountries[]) {
+    return countries.filter(country => country.name.common.includes(valueInput));
+  }
+  function filterWithRegion(countries: ICountries[]) {
+    return countries.filter(country => country.region == valueSelect);
+  }
+  function filterWithRegionAndName() {
+    const filterName = firstFetch.filter(country => country.name.common.includes(valueInput));
+    const filterRegion = filterName.filter(country => country.region == valueSelect);
+    return filterRegion;
+  }
+  function handleInput(e:ChangeEvent<HTMLInputElement>) {
+    setValueInput(e.target.value);
 
-  type NewType = HTMLSelectElement;
+    !valueSelect ? setCountries(filterWithName(firstFetch)) :
+      setCountries(filterWithRegionAndName());
+  }
 
-  async function handleSelect(e: ChangeEvent<NewType>) {
-    console.log(firstFetch);
-    const filtrado = firstFetch.filter(first => first.region == e.target.value);
-    console.log(filtrado);
-    setCountries(filtrado);
-
+  function handleSelect(e: ChangeEvent<HTMLSelectElement>) {
+    setValueSelect(e.target.value);
+  }
+  function selectCountries() {
+    if (valueSelect == '') {
+      !valueInput ? setCountries(firstFetch) : filterWithName(firstFetch);
+      return;
+    }
+    valueInput ? setCountries(filterWithRegionAndName()) :setCountries(filterWithRegion(firstFetch));
   }
 
   return (
     <Main>
       <Container >
         <AiOutlineSearch  />
-        <Input type="text" placeholder='Search for a country...'/>
+        <Input type="text" placeholder='Search for a country...'
+          onChange={(e)=> handleInput(e)}/>
       </Container>
-      <Select name="" id="" onChange={(e) => handleSelect(e)}>
-        <option value="" hidden>Filter by Region</option>
+      <Select name="" id="" value={value}
+        onChange={(e) => handleSelect(e)}>
+        <option value="" disabled >Filter by Region</option>
+        <option value="">All</option>
         <option value="Africa">Africa</option>
         <option value="Americas">America</option>
         <option value="Asia">Asia</option>
