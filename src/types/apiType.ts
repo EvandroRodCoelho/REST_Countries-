@@ -1,9 +1,7 @@
 
 export interface ICountries {
-  name: {
-    common: string,
-    official: string;
-  }
+  name: string
+  nativeName: string;
   region: string;
   population: string;
   capital: string[];
@@ -11,5 +9,8 @@ export interface ICountries {
     svg: string;
     png: string;
   }
+  alpha2Code: string;
 }
+
+
 
