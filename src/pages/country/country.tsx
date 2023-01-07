@@ -1,22 +1,62 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { Link, useParams } from 'react-router-dom';
-import { ICountries } from '../../types/apiType';
+import { Borders } from '../../components/borders';
+import { Main } from '../../components/main';
+import { SingleCountry } from '../../components/singleCountry';
+import { ISingleCountry } from '../../types/singleCountryType';
+import { initalValue } from '../../utils/initialValueSingleCountry';
+import { Container } from './styles';
 
 export function Country() {
 
-  const [country, setCountry] = useState<ICountries[]>();
+  const [country, setCountry] = useState<ISingleCountry>(initalValue);
 
-  const { capital } = useParams<string>();
+  const { name } = useParams<string>();
+
   async function Get() {
-    const res = await axios.get(`https://restcountries.com/v3.1/capital/${capital}`);
-    setCountry(res.data);
+    try {
+      const res = await axios.get(`https://restcountries.com/v2/alpha/${name}` );
+      setCountry(res.data);
+    }
+    catch (e) {
+      console.log(e);
+    }
   }
+
   useEffect(() => {
     Get();
-  }, []);
-  return (
-    <Link to='/' >Voltar</Link>
+  }, [name]);
 
+
+
+  return (
+    <Main>
+      <Container>
+        <Link to='/' className='back' >
+          <AiOutlineArrowLeft />
+          Voltar
+        </Link>
+        <div>
+
+          <SingleCountry
+            capital={country.capital}
+            population={country.population}
+            nativeName={country.nativeName}
+            subregion={country.subregion}
+            region={country.region}
+            flag={country.flag}
+            name={country.name}
+            languages={country.languages}
+            topLevelDomain={country.topLevelDomain}
+            currencies={country.currencies}
+            alpha2Code={country.alpha2Code}
+            borders={country.borders}
+          />
+        </div>
+      </Container>
+
+    </Main>
   );
 }

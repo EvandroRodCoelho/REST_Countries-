@@ -7,18 +7,20 @@ interface ICountries {
   population: string;
   capital: string[];
   flag: string;
+  alpha2Code: string;
 }
 
 
-export function CardCountry({name , region ,population,capital,flag}:ICountries) {
+export function CardCountry({ name, region, population, capital, flag,
+  alpha2Code }: ICountries) {
 
   return (
     <Container>
       <ContainerImg>
-        <img src={flag} alt={flag} />
+        <img src={flag} alt={flag} loading="lazy" />
       </ContainerImg>
       <ContainerText>
-        <Link to={`/country/${capital}`}>{name}</Link>
+        <Link to={`/country/${alpha2Code}`}>{name}</Link>
         <h3>Population: <span> {population} </span> </h3>
         <h3>Region: <span> {region} </span> </h3>
         <h3>Capital: <span>{capital}</span>  </h3>

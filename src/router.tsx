@@ -12,7 +12,7 @@ export function Router() {
       <Header   />
       <Routes>
         <Route path='/' element={<Home  />} />
-        <Route path='/country/:capital' element={<Country  />}/>
+        <Route path='/country/:name' element={<Country  />}/>
       </Routes>
 
     </BrowserRouter>
