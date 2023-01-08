@@ -19,8 +19,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [rest-countries-silk-eight.vercel.app](rest-countries-silk-eight.vercel.app)
 
 ## My process
 
@@ -33,7 +32,6 @@ Users should be able to:
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
 - [Styled Components](https://styled-components.com/) - For styles
-
 
 ## Author
 
