@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { Link, useParams } from 'react-router-dom';
-import { Borders } from '../../components/borders';
 import { Main } from '../../components/main';
 import { SingleCountry } from '../../components/singleCountry';
 import { ISingleCountry } from '../../types/singleCountryType';
@@ -41,18 +40,18 @@ export function Country() {
           <div>
 
             <SingleCountry
-              capital={country.capital}
-              population={country.population}
-              nativeName={country.nativeName}
-              subregion={country.subregion}
-              region={country.region}
-              flag={country.flag}
-              name={country.name}
-              languages={country.languages}
-              topLevelDomain={country.topLevelDomain}
-              currencies={country.currencies}
-              alpha2Code={country.alpha2Code}
-              borders={country.borders}
+              capital={country?.capital}
+              population={country?.population}
+              nativeName={country?.nativeName}
+              subregion={country?.subregion}
+              region={country?.region}
+              flag={country?.flag}
+              name={country?.name}
+              languages={country?.languages}
+              topLevelDomain={country?.topLevelDomain}
+              currencies={country?.currencies}
+              alpha2Code={country?.alpha2Code}
+              borders={country?.borders}
             />
           </div>
         </Container>
