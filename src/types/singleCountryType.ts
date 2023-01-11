@@ -13,7 +13,7 @@ export interface ISingleCountry {
     nativeName: string;
   }],
   flag: string,
-  borders: [string];
+  borders: string[];
   alpha2Code: string;
   currencies: [{
     code: string;

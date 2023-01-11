@@ -9,6 +9,7 @@ export function usePageHome() {
   const [valueInput, setValueInput] = useState('');
   const [valueSelect, setValueSelect] = useState<string>();
   const [isError, setIsError] = useState(false);
+
   let first = true;
   const value = valueSelect;
   async function Get() {
@@ -75,6 +76,7 @@ export function usePageHome() {
     handleSelect,
     value,
     countries,
-    isError
+    isError,
+    valueInput,
   };
 }

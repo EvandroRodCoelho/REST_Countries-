@@ -1,7 +1,6 @@
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { Container } from './styles';
 import { Link } from 'react-router-dom';
-import { Main } from '../../components/main';
 import { NotFoundPage } from '../notFoundPage';
 import { SingleCountry } from '../../components/singleCountry';
 import { useCountry } from './useCountry';
@@ -43,7 +42,7 @@ export function Country() {
 
   return (
     <>
-      {isError ? <NotFoundPage />
+      {isError ? <NotFoundPage isHome={false } />
         : <CountryComponent  />}
     </>
 
