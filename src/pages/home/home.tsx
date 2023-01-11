@@ -4,7 +4,7 @@ import { CardCountry } from '../../components/cardCountry';import { useHref } fr
 import { usePageHome } from './useHomePage';
 import { NotFoundPage } from '../notFoundPage';
 export function Home() {
-  const { handleInput,handleSelect,value,countries ,isError } = usePageHome();
+  const { handleInput,handleSelect,value,countries ,isError,valueInput } = usePageHome();
 
   function Content() {
 
@@ -13,7 +13,10 @@ export function Home() {
         <Container >
           <AiOutlineSearch  />
           <Input type="text" placeholder='Search for a country...'
-            onChange={(e)=> handleInput(e)}/>
+            onChange={(e)=> handleInput(e)}
+            value={valueInput}
+            autoFocus
+          />
         </Container>
         <Select name="" id="" value={value}
           onChange={(e) => handleSelect(e)}>
