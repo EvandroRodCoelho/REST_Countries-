@@ -1,37 +1,17 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
-import { Link, useParams } from 'react-router-dom';
-import { Main } from '../../components/main';
-import { SingleCountry } from '../../components/singleCountry';
-import { ISingleCountry } from '../../types/singleCountryType';
-import { initalValue } from '../../utils/initialValueSingleCountry';
-import { NotFoundPage } from '../notFoundPage';
 import { Container } from './styles';
+import { Link } from 'react-router-dom';
+import { Main } from '../../components/main';
+import { NotFoundPage } from '../notFoundPage';
+import { SingleCountry } from '../../components/singleCountry';
+import { useCountry } from './useCountry';
 
 export function Country() {
-
-  const [country, setCountry] = useState<ISingleCountry>(initalValue);
-  const [isError, setIsError] = useState(false);
-  const { name } = useParams<string>();
-
-  async function Get() {
-    try {
-      const res = await axios.get(`https://restcountries.com/v2/alpha/${name}` );
-      setCountry(res.data);
-    }
-    catch (e) {
-      setIsError(true);
-    }
-  }
-
-  useEffect(() => {
-    Get();
-  }, [name]);
+  const { country,isError} = useCountry();
 
   function CountryComponent() {
     return (
-      <Main>
+      <>
         <Container>
           <Link to='/' className='back' >
             <AiOutlineArrowLeft />
@@ -56,7 +36,7 @@ export function Country() {
           </div>
         </Container>
 
-      </Main>
+      </>
     );
   }
 
