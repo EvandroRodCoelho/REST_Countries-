@@ -3,9 +3,7 @@ import { Grid } from './styles';
 
 
 interface IBorder{
-  borders?: [
-    string
-  ];
+ borders?: string[];
 }
 export function Borders({borders}:IBorder) {
   return (
