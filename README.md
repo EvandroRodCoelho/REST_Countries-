@@ -19,7 +19,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [rest-countries-silk-eight.vercel.app](rest-countries-silk-eight.vercel.app)
+- Live Site URL: [https://rest-countries-silk-eight.vercel.app](https://rest-countries-silk-eight.vercel.app)
 
 ## My process
 
