@@ -43,7 +43,7 @@ export const Container = styled.div`
 
     @media (min-width: 1110px) {
       h3{
-        margin-left: 20px;
+        margin-left: 0;
       }
 
     }
