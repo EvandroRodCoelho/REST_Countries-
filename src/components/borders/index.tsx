@@ -11,7 +11,7 @@ export function Borders({borders}:IBorder) {
       {borders ? borders?.map((country, value) => (
         <Link key={value}
           to={`/country/${country}`}>{country}</Link>
-      )) : <h1>Nâo possui</h1>}
+      )) : <h1>Does not own</h1>}
     </Grid>
   );
 }
