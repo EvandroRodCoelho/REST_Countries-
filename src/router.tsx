@@ -16,7 +16,7 @@ export function Router() {
         <Routes>
           <Route path='/' element={<Home  />} />
           <Route path='/country/:name' element={<Country />} />
-          <Route  path='*' element={<NotFoundPage/>} isHome={false} />
+          <Route  path='*' element={<NotFoundPage isHome={false} />} />
         </Routes>
       </Main>
     </BrowserRouter>
