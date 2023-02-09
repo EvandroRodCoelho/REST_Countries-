@@ -21,7 +21,5 @@ export const Button = styled.button`
   border: none;
   color: ${props => props.theme.text};
   font-weight: ${Font.weight.SemiBold};
-  @media (min-width: 1100px) {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
