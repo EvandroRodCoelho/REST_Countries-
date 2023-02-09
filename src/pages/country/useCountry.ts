@@ -1,32 +1,39 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import {  useEffect } from 'react';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
-import { initalValue } from '../../mock/initialValueSingleCountry';
 import { ISingleCountry } from '../../types/singleCountryType';
 
 export function useCountry() {
 
-
-  const [country, setCountry] = useState<ISingleCountry>(initalValue);
-  const [isError, setIsError] = useState(false);
+  const { data,isError, isFetching } = useQuery<ISingleCountry >(['country'], ()=> Get());
   const { name } = useParams<string>();
-
+  const client = useQueryClient();
+  const mutate = useMutation<ISingleCountry>(() => Get(), {
+    onSuccess: () => {
+      client.invalidateQueries(['country']);
+    },
+  });
   async function Get() {
     try {
       const res = await axios.get(`https://restcountries.com/v2/alpha/${name}`);
-      setCountry(res.data);
+      return res.data;
     }
     catch (e) {
-      setIsError(true);
+      console.log(e);
     }
   }
 
+
+
   useEffect(() => {
-    Get();
+    mutate.mutate();
   }, [name]);
 
   return {
-    country,
-    isError
+    data,
+    isError,
+    mutate,
+    isFetching
   };
 }

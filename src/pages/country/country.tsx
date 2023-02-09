@@ -4,9 +4,15 @@ import { Link } from 'react-router-dom';
 import { NotFoundPage } from '../notFoundPage';
 import { SingleCountry } from '../../components/singleCountry';
 import { useCountry } from './useCountry';
+import { Loading } from '../../components/loading';
 
 export function Country() {
-  const { country,isError} = useCountry();
+  const { data,isError, mutate ,isFetching} = useCountry();
+
+  if (mutate.isLoading || isFetching) {
+    return <Loading />;
+  }
+
 
   function CountryComponent() {
     return (
@@ -19,18 +25,18 @@ export function Country() {
           <div>
 
             <SingleCountry
-              capital={country?.capital}
-              population={country?.population}
-              nativeName={country?.nativeName}
-              subregion={country?.subregion}
-              region={country?.region}
-              flag={country?.flag}
-              name={country?.name}
-              languages={country?.languages}
-              topLevelDomain={country?.topLevelDomain}
-              currencies={country?.currencies}
-              alpha2Code={country?.alpha2Code}
-              borders={country?.borders}
+              capital={mutate.data?.capital}
+              population={mutate.data?.population}
+              nativeName={mutate.data?.nativeName}
+              subregion={mutate.data?.subregion}
+              region={mutate.data?.region}
+              flag={mutate.data?.flag}
+              name={mutate.data?.name}
+              languages={mutate.data?.languages}
+              topLevelDomain={mutate.data?.topLevelDomain}
+              currencies={mutate.data?.currencies}
+              alpha2Code={mutate.data?.alpha2Code}
+              borders={mutate.data?.borders}
             />
           </div>
         </Container>

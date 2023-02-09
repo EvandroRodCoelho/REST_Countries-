@@ -1,12 +1,20 @@
 import { Container, Grid, Input, Select } from './styles';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { CardCountry } from '../../components/cardCountry';import { useHref } from 'react-router-dom';
+import { CardCountry } from '../../components/cardCountry';
 import { usePageHome } from './useHomePage';
 import { NotFoundPage } from '../notFoundPage';
+import { Loading } from '../../components/loading';
 export function Home() {
-  const { handleInput,handleSelect,value,countries ,isError,valueInput } = usePageHome();
+  const {first, handleInput,handleSelect,value,countries,isFetching,data ,isError,valueInput } = usePageHome();
+
 
   function Content() {
+
+    if (isFetching) {
+      return (
+        <Loading   />
+      );
+    }
 
     return (
       <>
@@ -31,7 +39,7 @@ export function Home() {
 
 
         <Grid>
-          {countries.map((country, value) => (
+          {data &&  countries?.map((country, value) => (
             <CardCountry
               capital={country.capital}
               name={country.name}
@@ -48,6 +56,8 @@ export function Home() {
 
 
   }
+
+
   return (
     <>
       {isError ? <NotFoundPage isHome={true}  /> :<Content /> }

@@ -1,30 +1,28 @@
 import axios from 'axios';
 import { useState, useEffect, useLayoutEffect, ChangeEvent, useCallback, useRef } from 'react';
+import { useQuery } from 'react-query';
 
 import { ICountries } from '../../types/apiType';
 
 export function usePageHome() {
-  const [countries, setCountries] = useState<ICountries[]>([]);
-  const [firstFetch, setFirstFetch] = useState<ICountries[]>([]);
+  const { data,isError, isFetching } = useQuery<ICountries[]>(['data'], ()=> Get());
+  const [countries, setCountries] = useState<ICountries[] | undefined>(data);
   const [valueInput, setValueInput] = useState('');
   const [valueSelect, setValueSelect] = useState<string>();
-  const [isError, setIsError] = useState(false);
-
   let first = true;
   const value = valueSelect;
+
+
   async function Get() {
     try {
       const res = await axios.get('https://restcountries.com/v2/all');
       setCountries(res.data);
-      setFirstFetch(res.data);
+      return res.data;
     } catch (e) {
-      setIsError(true);
+      console.log(e);
     }
 
   }
-  useEffect(() => {
-    Get();
-  }, []);
   useEffect(() => {
     if (first) {
       selectCountries();
@@ -35,33 +33,35 @@ export function usePageHome() {
       selectForInput();
     }
   }, [valueInput]);
+
   useLayoutEffect(() => {
     if (first) {
       first = false;
     }
   }, []);
-  function filterWithName(countries:ICountries[]) {
-    return countries.filter(country => country.name.includes(valueInput));
+
+  function filterWithName(countries:ICountries[] | undefined) {
+    return countries!.filter(country => country.name.includes(valueInput));
   }
-  function filterWithRegion(countries: ICountries[]) {
-    return countries.filter(country => country.region == valueSelect);
+  function filterWithRegion(countries: ICountries[] | undefined) {
+    return countries!.filter(country => country.region == valueSelect);
   }
   function filterWithRegionAndName() {
-    const filterName = firstFetch.filter(country => country.name.includes(valueInput));
-    const filterRegion = filterName.filter(country => country.region == valueSelect);
+    const filterName = data!.filter(country => country.name.includes(valueInput));
+    const filterRegion = filterName!.filter(country => country.region == valueSelect);
     return filterRegion;
   }
 
   function selectForInput() {
-    !valueSelect ? setCountries(filterWithName(firstFetch)) :
+    !valueSelect ? setCountries(filterWithName(data)) :
       setCountries(filterWithRegionAndName());
   }
   function selectCountries() {
     if (valueSelect == '') {
-      !valueInput ? setCountries(firstFetch) : filterWithName(firstFetch);
+      !valueInput ? setCountries(data) : filterWithName(data);
       return;
     }
-    valueInput ? setCountries(filterWithRegionAndName()) :setCountries(filterWithRegion(firstFetch));
+    valueInput ? setCountries(filterWithRegionAndName()) : setCountries(filterWithRegion(data));
   }
 
   const handleInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -78,5 +78,8 @@ export function usePageHome() {
     countries,
     isError,
     valueInput,
+    data,
+    first,
+    isFetching
   };
 }
